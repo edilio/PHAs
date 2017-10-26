@@ -25,7 +25,7 @@ SECRET_KEY = '8h5%d+0n!3^%#nwt3by@ho++8&76#%$eivex*rjle20xszf41_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['phas.jedutils.com', ]
+ALLOWED_HOSTS = ['phas.jedutils.com', 'localhost']
 
 
 # Application definition
