@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/!svn/ver/23/trunk/report
+END
+middleware.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/14/trunk/report/middleware.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/3/trunk/report/__init__.py
+END
+settings.py
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/4/trunk/report/settings.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/20/trunk/report/urls.py
+END

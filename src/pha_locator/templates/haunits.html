@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block extrahead %}
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
+	<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div id="home" data-role="page" data-theme="b">
+	<div data-role="header" data-theme="b">
+
+		<h2>{{ listname }} List ({{ phas|length }} housing authorities)</h2>
+
+	</div>
+	<div data-role="content">
+
+    <table>
+    	<ul id="home_ul" data-role="listview" data-inset="true">
+
+    	{% if listname|length  > 9 %}
+            {% for pha in phas %}
+        		<li><a href = "/admin/phas/pha/{{ pha.id }}" id ="{{ pha.id }}"
+        			title="{{pha.name}}" rel="external"><div align="left">{{pha.name}}</div><div align="center"> {{ pha.low_rent_units }}</div> <div align="right"></div></a></li>
+        	{% endfor %}
+		{% else %}
+            {% for pha in phas %}
+        		<li><a href = "/admin/phas/pha/{{ pha.id }}" id ="{{ pha.id }}"
+        			title="{{pha.name}}" rel="external">{{pha.name}}  ------------------------------- {{ pha.section8_units }}</a></li>
+    		{% endfor %}
+		{% endif %}
+
+        </ul>
+    </table>
+      </div>
+</div>
+{% endblock %}

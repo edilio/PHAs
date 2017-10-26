@@ -1,0 +1,72 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+    <title>HA's locations</title> 
+    <script src="//maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script> 
+
+
+	<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript"> 
+ 
+    var map = null;
+    var geocoder = null;
+ 
+    function showAddress(address) {
+      if (geocoder) {
+        geocoder.getLatLng(
+          address,
+          function(point) {
+            if (!point) {
+              ;//alert(address + " not found");
+            } else {
+              map.setCenter(point, 13);
+              var marker = new GMarker(point);
+              map.addOverlay(marker);
+ 
+              // As this is user-generated content, we display it as
+              // text rather than HTML to reduce XSS vulnerabilities.
+              marker.openInfoWindow(document.createTextNode(address));
+            }
+          }
+        );
+      }
+    }
+ 
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+      	var myLatlng = new GLatLng(37.4419, -122.1419)
+      	var myOptions = {
+    		zoom: 0,
+    		center: myLatlng,
+    		mapTypeId: google.maps.MapTypeId.ROADMAP
+  		};
+  		
+        map = new GMap2(document.getElementById("map_canvas"),myOptions);
+        map.setCenter(myLatlng, 13);
+        	
+  		geocoder = new GClientGeocoder();
+  		
+  		{% for pha in phas %}
+        	showAddress("{{pha.line1 }}, {{ pha.city }}, {{pha.state}} {{pha.zip_code}}, USA");
+    	{% endfor %}
+    	
+      }
+    }
+ 
+       </script> 
+  </head> 
+ 
+  <body onload="initialize()" onunload="GUnload()"> 
+    <form action="#" onsubmit="showAddress(this.address.value); return false"> 
+      <p> 
+        <input type="text" size="60" name="address" value="1600 Amphitheatre Pky, Mountain View, CA" /> 
+        <input type="submit" value="Go!" /> 
+      </p> 
+      <div id="map_canvas" style="width: 700px; height: 400px"></div> 
+    </form> 
+  </body> 
+</html> 
+ 

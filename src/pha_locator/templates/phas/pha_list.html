@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Housing Authorities</h2>
+<table>
+    {% for ha in object_list %}
+        <tr><td>{{ ha.name }}</td><td>{{ ha.low_rent_units }}</td><td>{{ ha.section8_units }}</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

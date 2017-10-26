@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load orderby %}
+
+{% block title %}Housing Authorities Without Web Sites{% endblock %}
+
+{% block extrahead %}
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div id="home" data-role="page" data-theme="b">
+	<div data-role="header" data-theme="b">
+
+		<h2>{{ listname }} List ({{ phas|length }} housing authorities)</h2>
+
+	</div>
+	<div data-role="content">
+
+	<form>
+        <div class="form-group">
+			<label for="zero-units">Units:</label>
+			<select class="form-control" id="zero-units" name="zero_units">
+				{% if zero_units == 'All' %}
+					<option selected value="All">All</option>
+				{% else %}
+					<option value="All">All</option>
+				{% endif %}
+				{% if zero_units == '1' %}
+					<option selected value="1">With Zero Units</option>
+				{% else %}
+					<option value="1">With Zero Units</option>
+				{% endif %}
+				{% if zero_units == '0' %}
+					<option selected value="0">More than 1 Unit</option>
+				{% else %}
+					<option value="0">More than 1 Unit</option>
+				{% endif %}
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="order_by">Order By:</label>
+			<select class="form-control" id="order_by" name="order_by">
+				{% if order_by == 'name' %}
+					<option selected value="name">Name</option>
+				{% else %}
+					<option value="name">Name</option>
+				{% endif %}
+				{% if order_by == 'total_units' %}
+					<option selected value="total_units">Total Units(Asc)</option>
+				{% else %}
+					<option value="total_units">Total Units(Asc)</option>
+				{% endif %}
+				{% if order_by == '-total_units' %}
+					<option selected value="-total_units">Total Units(Desc)</option>
+				{% else %}
+					<option value="-total_units">Total Units(Desc)</option>
+				{% endif %}
+
+			</select>
+		  </div>
+		<div class="form-group">
+			<label for="program">Program:</label>
+			<select class="form-control" id="program" name="program">
+				{% for item in programs %}
+					{% if item.0 == program %}
+						<option selected value="{{item.0}}">{{item.1}}</option>
+					{% else %}
+						<option value="{{item.0}}">{{item.1}}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+		</div>
+        <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+
+    <table>
+    	<ul id="home_ul" data-role="listview" data-inset="true">
+
+			{% for pha in phas %}
+				<li><a href = "/admin/phas/pha/{{ pha.id }}" id ="{{ pha.id }}"
+				title="{{pha.name}}" rel="external">{{pha.name}}  --> {{ pha.get_program_display }} -> {{ pha.total_units }} Units</a></li>
+			{% endfor %}
+
+        </ul>
+    </table>
+      </div>
+</div>
+{% endblock %}

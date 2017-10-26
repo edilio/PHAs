@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load orderby %}
+
+{% block content %}
+    <h2>{{ listname }} List ({{ phas|length }} housing authorities)</h2>
+    <table>
+    	<ol>
+    	{% for pha in phas|order_by:'-section8_units' %}
+        			<li><tr>
+        				<a href = "/admin/phas/pha/{{ pha.id }}">
+        			 
+        			 	<td>{{ pha.name }} </td> 
+        			 	<td> {{ pha.section8_units }}</td>
+        			 
+        			 	</a>
+        			 </tr>
+        			 </li>
+    		{% endfor %}
+		
+         </ol>   
+        
+    </table>
+{% endblock %}
