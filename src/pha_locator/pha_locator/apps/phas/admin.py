@@ -33,10 +33,10 @@ class PersonAdmin(admin.ModelAdmin):
 class PHAAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'state', 'program', 'low_rent_units', 'section8_units', 'total_units',
                     'email_address')
-    list_filter = ['program', 'state']
+    list_filter = ('program', 'state')
     list_per_page = 20
-    search_fields = ['code', 'name', 'city']
-    ordering = ['name']
+    search_fields = ('code', 'name', 'city')
+    ordering = ('name', )
     fieldsets = (
         ('General Info', {
             'fields': (('code', 'name'), 'program', ('low_rent_units', 'section8_units', ))

@@ -1,7 +1,13 @@
 # Create your views here.
 from django.views.generic import ListView
 from django.shortcuts import render_to_response
+
+from rest_framework import filters, viewsets, permissions
+from django_filters.rest_framework import DjangoFilterBackend
+
+
 from models import Pha, PROGRAM_CHOICES_WITH_ALL
+from .serializers import PhaSerializer
 
 
 def home(request):
@@ -57,3 +63,14 @@ def without_email(request):
 
 class PhaList(ListView):
     model = Pha
+
+
+class PhaViewSet(viewsets.ModelViewSet):
+    model = Pha
+    serializer_class = PhaSerializer
+    queryset = Pha.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend)
+    search_fields = ('code', 'name')
+    ordering_fields = ('code', 'name', 'city')
+    filter_fields = ('state', 'city', 'program')

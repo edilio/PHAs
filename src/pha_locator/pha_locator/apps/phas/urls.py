@@ -1,7 +1,8 @@
+from __future__ import unicode_literals
+
 from django.conf.urls import url
 
-
-# from rest_framework import routers
+from rest_framework import routers
 
 from . import views
 from .models import Pha
@@ -17,6 +18,10 @@ pha_info = {
 }
 
 
+router = routers.SimpleRouter(trailing_slash=True)
+router.register(r'api/v1/phas', views.PhaViewSet)
+
+
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^ph/$', views.ph, name='ph'),
@@ -25,3 +30,5 @@ urlpatterns = [
     url(r'^without-email/$', views.without_email, name='withoutemail'),
     url(r'^phas/page(?P<page>[0-9]+)$', views.PhaList.as_view(), pha_info),
 ]
+
+urlpatterns += router.urls
