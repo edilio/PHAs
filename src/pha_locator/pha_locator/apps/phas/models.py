@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.signals import pre_save
-from .signals import pre_save_pha
+from .signals import pre_save_pha, pre_save_city
 
 
 class County(models.Model):
@@ -48,6 +48,7 @@ class VPS(models.Model):
     VPSMfg = models.IntegerField(default=0)
     EditBy = models.CharField(max_length=30)
     EditDate = models.DateField()
+
 
 STATE_CHOICES = (
     ('AK', 'Alaska'),
@@ -123,9 +124,6 @@ class City(models.Model):
     class Meta:
         verbose_name_plural = 'Cities'
 
-    def save(self):
-        self.cityStateZip = self.city + ',' + self.state + ',' + self.zip
-        super(City, self).save()
 
 
 PROGRAM_CHOICES = (
@@ -170,3 +168,4 @@ class Pha(models.Model):
 
 
 pre_save.connect(pre_save_pha, sender=Pha)
+pre_save.connect(pre_save_city, sender=City)
