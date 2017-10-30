@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
+
 from pha_locator.apps.phas import views
 
 
@@ -23,4 +25,4 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'has/', include('pha_locator.apps.phas.urls', namespace='phas')),
     url(r'^admin/', admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
